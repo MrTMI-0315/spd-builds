@@ -34,6 +34,8 @@
   const cite = ([url, date]) => h('a', { class: 'cite', href: url, target: '_blank', rel: 'noopener' },
     url.includes('namu.wiki') ? '나무위키' : `DC #${new URL(url).searchParams.get('no')}`, ` ${date.slice(5)}`);
   const DC = 'https://gall.dcinside.com/mgallery/board/view/?id=spd&no=';
+  // optional {tag, why, quote}: code/description evidence shown next to a community claim
+  const codeEv = (c) => c ? [' ', tag(c.tag), ' ', c.why, h('span', { class: 'dim' }, ` — “${quoteText(c.quote)}”`)] : null;
   // [grade, why, mentions, [[no,date]…], quote] → evidence cell contents
   const evidence = ([, why, n, posts, q]) => [why, ' ', tag(posts.length ? '커뮤니티' : '추정'),
     posts.length ? h('span', { class: 'dim' }, ` 언급 ${n}건`) : null, ...posts.flatMap(([no, d]) => [' ', cite([DC + no, d])]),
@@ -114,7 +116,7 @@
       h('div', { class: 'tier-h' }, h('span', {}, '갑옷 능력'), h('span', { class: 't5' }, 'Lv21+ · 드워프 제왕의 왕관')),
       h('div', { class: 'talent' }, rectSprite('heroes', ab.rect),
         h('div', { class: 'tn' }, h('span', { 'data-tip': plain(ab.desc_ko) }, ab.name_ko), tag(b.armorAbility.tag)),
-        h('div', { class: 'why' }, b.armorAbility.why, b.armorAbility.quote ? h('span', { class: 'dim' }, ` — “${quoteText(b.armorAbility.quote)}”`) : null, b.armorAbility.src ? [' ', cite(b.armorAbility.src)] : null)),
+        h('div', { class: 'why' }, b.armorAbility.why, b.armorAbility.quote ? h('span', { class: 'dim' }, ` — “${quoteText(b.armorAbility.quote)}”`) : null, b.armorAbility.src ? [' ', cite(b.armorAbility.src)] : null, codeEv(b.armorAbility.code))),
       ...tierBlock(4),
       b.bonus && b.bonus.length ? h('div', {},
         h('div', { class: 'tier-h' }, h('span', {}, '신성한 영감의 물약 (+2)'), h('span', { class: 't5' }, '티어당 1회')),
@@ -125,7 +127,7 @@
       ...b.gear.map((gi) => h('div', { class: 'gear-row' },
         h('div', { class: 'slot' }, gearSprite(gi.ref) || h('span', {}, gi.slot)),
         h('div', {}, h('div', { class: 'tn row', style: 'gap:calc(2*var(--u))' }, h('span', {}, gearName(gi)), tag(gi.tag)),
-          h('div', { class: 'small' }, gi.why, gi.quote ? h('span', { class: 'dim' }, ` — “${quoteText(gi.quote)}”`) : null, gi.src ? [' ', cite(gi.src)] : null)))),
+          h('div', { class: 'small' }, gi.why, gi.quote ? h('span', { class: 'dim' }, ` — “${quoteText(gi.quote)}”`) : null, gi.src ? [' ', cite(gi.src)] : null, codeEv(gi.code))))),
       h('div', { class: 'tier-h' }, h('span', {}, '운영'), tag(b.playstyleTag)),
       h('p', { class: 'small', style: 'margin:0' }, b.playstyle),
     );
@@ -141,7 +143,7 @@
       h('div', { class: 'small' }, '시작 장비: ', (cls.startItems || []).map((i) => i.name_ko).filter(Boolean).join(', '), ' ', srcLink(cls.src)),
       B ? [
         h('p', { style: 'margin-top:calc(4*var(--u))' }, B.summary, tag(B.summaryTag)),
-        h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag), B.subclassVerdict.src ? [' ', cite(B.subclassVerdict.src)] : null),
+        h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag), B.subclassVerdict.src ? [' ', cite(B.subclassVerdict.src)] : null, codeEv(B.subclassVerdict.code)),
         ...(B.subclassVerdict.community || []).map((c) => h('p', { class: 'small', style: 'margin-top:0' }, tag('커뮤니티'), ' ', c.text, ...c.src.flatMap((x) => [' ', cite(x)]))),
         h('div', { class: 'builds' }, ...B.builds.map((b) => buildCard(cls, b, B.subclassVerdict.pick))),
       ] : h('p', { class: 'pending' }, '빌드 작성 중입니다.'),

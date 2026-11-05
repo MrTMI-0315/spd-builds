@@ -25,7 +25,12 @@
           ]
         ]
       }
-    ]
+    ],
+    "code": {
+      "tag": "코드 계산",
+      "why": "v4.0에서 나무껍질이 레벨의 50%→33%로 줄고 헤쳐진 풀에서 안 터짐. 변경 내역에 저격수 항목 없음",
+      "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/ui/changelist/v4_X_Changes.java:367-368 Barkskin no longer triggers from furrowed grass / reduced to 33% of hero level, from 50%"
+    }
   },
   "builds": [
     {

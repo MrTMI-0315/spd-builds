@@ -24,6 +24,9 @@ def check_tag(obj, where):
     assert obj.get("tag") in TAGS, f"{where}: bad tag {obj.get('tag')!r}"
     if obj["tag"] in ("코드 계산", "설명문 기준"):
         assert obj.get("quote") or any(ch.isdigit() for ch in obj.get("why", "")), f"{where}: needs a quoted number"
+    if obj.get("code"):
+        c = obj["code"]
+        assert c.get("tag") in ("코드 계산", "설명문 기준") and c.get("why") and c.get("quote"), f"{where}: bad code evidence"
     if obj["tag"] == "커뮤니티":
         assert obj.get("src", [""])[0].startswith("https://"), f"{where}: community claim needs src [url, date]"
 

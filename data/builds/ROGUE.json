@@ -212,7 +212,12 @@
         "src": [
           "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=82783",
           "2026-08-29"
-        ]
+        ],
+        "code": {
+          "tag": "코드 계산",
+          "why": "빠른 후퇴 +4로 점멸 후 4턴 투명화, 투명한 동안 마음가짐이 쌓임",
+          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/hero/abilities/rogue/SmokeBomb.java:134 duration = 0.67f + HASTY_RETREAT; core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Preparation.java:136 if (target.invisible > 0) turnsInvis++"
+        }
       },
       "gear": [
         {
@@ -246,7 +251,12 @@
             "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=80081",
             "2026-06-14"
           ],
-          "name": "그림자의 망토"
+          "name": "그림자의 망토",
+          "code": {
+            "tag": "설명문 기준",
+            "why": "사용하면 일시적으로 완전히 투명해짐",
+            "quote": "core/src/main/assets/messages/items/items_ko.properties:203 이 망토를 입으면 일시적으로 완전히 투명해질 수 있습니다"
+          }
         },
         {
           "slot": "artifact",
@@ -459,7 +469,12 @@
             "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=79201",
             "2026-05-14"
           ],
-          "name": "저격의 반지"
+          "name": "저격의 반지",
+          "code": {
+            "tag": "설명문 기준",
+            "why": "모든 발사체 무기를 강화",
+            "quote": "core/src/main/assets/messages/items/items_ko.properties:1116 모든 발사체 무기들을 더 강력하고 오래 사용할 수 있게 합니다"
+          }
         },
         {
           "slot": "weapon",

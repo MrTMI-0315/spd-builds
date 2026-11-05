@@ -551,7 +551,12 @@
             "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=78173",
             "2026-04-01"
           ],
-          "name": "타락의 마법 막대"
+          "name": "타락의 마법 막대",
+          "code": {
+            "tag": "코드 계산",
+            "why": "영혼 흡수 +3이면 아군 물리 공격도 표식 회복을 40%로 발동",
+            "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/mobs/Mob.java:880-886 enemy != hero → restoration × 0.4×SOUL_SIPHON/3"
+          }
         },
         {
           "slot": "weapon",

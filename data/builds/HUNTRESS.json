@@ -5,7 +5,18 @@
   "subclassVerdict": {
     "pick": "SNIPER",
     "why": "v4.0에서 숲지기 핵심인 나무껍질이 레벨의 50%→33%로 줄고 헤쳐진 풀에서 안 터짐. 저격수는 변경 없음",
-    "tag": "추정"
+    "tag": "추정",
+    "community": [
+      {
+        "text": "저격의 반지에 강화를 몰아주는 저격수가 무난하다는 댓글이 있습니다. 씨앗을 돌로 바꾸는 화석 장신구를 들었다면 숲지기는 피하라는 의견도 있습니다.",
+        "src": [
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84022",
+            "2026-10-17"
+          ]
+        ]
+      }
+    ]
   },
   "builds": [
     {

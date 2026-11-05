@@ -5,7 +5,8 @@
   "subclassVerdict": {
     "pick": "ASSASSIN",
     "why": "9턴 마음가짐 공격이 +50%·3회 중 최고 피해이고, 향상된 치사율 3이면 일반 적은 체력 100% 미만 즉사",
-    "tag": "추정"
+    "tag": "추정",
+    "community": [{"text": "프리러너를 권하는 쪽이 조금 우세합니다(신속·흐름 상형문자 사슬 갑옷 조합, 고챌린지용). 충전의 반지가 있으면 암살자라는 의견도 있어 갈립니다.", "src": [["https://namu.wiki/w/Shattered_Pixel_Dungeon/직업", "2026-10-13"], ["https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84208", "2026-10-25"]]}]
   },
   "builds": [
     {

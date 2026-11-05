@@ -5,7 +5,18 @@
   "subclassVerdict": {
     "pick": "BATTLEMAGE",
     "why": "흑마법사 표식은 +0 막대 15%라 강화에 크게 의존, 전투 마법사 효과는 매 타격 발동",
-    "tag": "추정"
+    "tag": "추정",
+    "community": [
+      {
+        "text": "마음에 드는 고티어 근접 무기를 얻었다면 흑마법사를 권합니다. 타락·굴절광 막대와 궁합이 좋다는 평입니다.",
+        "src": [
+          [
+            "https://namu.wiki/w/Shattered_Pixel_Dungeon/직업",
+            "2026-10-13"
+          ]
+        ]
+      }
+    ]
   },
   "builds": [
     {

@@ -28,8 +28,11 @@
     }
     return out;
   }
-  const TAGCLS = { '코드 계산': 'calc', '코드 확인': 'calc', '설명문 기준': 'text', '추정': 'inf' };
+  const TAGCLS = { '코드 계산': 'calc', '코드 확인': 'calc', '설명문 기준': 'text', '추정': 'inf', '커뮤니티': 'comm' };
   const tag = (t) => h('span', { class: `prov ${TAGCLS[t] || ''}` }, t);
+  // [url, date] → "나무위키 10-27" / "DC #84430 11-04"
+  const cite = ([url, date]) => h('a', { class: 'cite', href: url, target: '_blank', rel: 'noopener' },
+    url.includes('namu.wiki') ? '나무위키' : `DC #${new URL(url).searchParams.get('no')}`, ` ${date.slice(5)}`);
   const rectSprite = (sheet, r) => sprite(sheet, Array.isArray(r) ? r : [r.x, r.y, r.w, r.h]);
   const talentIcon = (id, cls) => {
     const t = TALENT[id];
@@ -60,6 +63,7 @@
     h('span', {}, tag('코드 계산'), ' 게임 코드로 계산한 값'),
     h('span', {}, tag('설명문 기준'), ' 게임 속 한국어 설명의 수치'),
     h('span', {}, tag('추정'), ' 수치를 바탕으로 한 판단'),
+    h('span', {}, tag('커뮤니티'), ' 나무위키·DC 녹픽던 갤러리 의견 (v4.0 이후 글 위주, 추천 수가 적어 소수 의견)'),
   );
   $('#foot-meta').textContent = `기준: v${T.meta.version} (커밋 ${T.meta.commit.hash.slice(0, 7)}, ${T.meta.commit.date}). 빌드 초안은 tools/merge_builds.py로 포인트 예산을 검증했습니다.`;
 
@@ -92,7 +96,7 @@
             h('span', { class: 'pips', 'aria-label': `${t.points}/${TALENT[t.id].maxPoints}` },
               ...Array.from({ length: TALENT[t.id].maxPoints }, (_, i) => h('i', { class: i < t.points ? 'on' : null }))),
             tag(t.tag)),
-          h('div', { class: 'why' }, t.why, t.quote ? h('span', { class: 'dim' }, ` — “${quoteText(t.quote)}”`) : null))),
+          h('div', { class: 'why' }, t.why, t.quote ? h('span', { class: 'dim' }, ` — “${quoteText(t.quote)}”`) : null, t.src ? cite(t.src) : null))),
       ];
     };
     return h('div', { class: 'build' },
@@ -133,6 +137,7 @@
       B ? [
         h('p', { style: 'margin-top:calc(4*var(--u))' }, B.summary, tag(B.summaryTag)),
         h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag)),
+        ...(B.subclassVerdict.community || []).map((c) => h('p', { class: 'small', style: 'margin-top:0' }, tag('커뮤니티'), ' ', c.text, ...c.src.map(cite))),
         h('div', { class: 'builds' }, ...B.builds.map((b) => buildCard(cls, b, B.subclassVerdict.pick))),
       ] : h('p', { class: 'pending' }, '빌드 작성 중입니다.'),
       h('details', { class: 'all' }, h('summary', { class: 't6' }, `${cls.name_ko} 특성 전체 보기 (${allTalents.length}개)`),
@@ -144,13 +149,9 @@
   }
 
   /* ---------------- weapon tiers ---------------- */
-  // Grade = rank band of computed DPT within one scenario: top 20% S, next 30% A, next 30% B, rest C.
+  // Grade = hand-written, compared within the same weapon tier (data/tiers.js weaponGrades).
   const ranked = GEAR.meleeWeapons.filter((w) => w.id !== 'MagesStaff');
-  const grade = {};
-  for (const sc of ['A', 'A_atReq', 'B']) {
-    const order = [...ranked].sort((a, b) => RES[sc][b.id].dpt - RES[sc][a.id].dpt);
-    grade[sc] = Object.fromEntries(order.map((w, i) => [w.id, i / order.length < 0.2 ? 'S' : i / order.length < 0.5 ? 'A' : i / order.length < 0.8 ? 'B' : 'C']));
-  }
+  const WG = TIERS.weaponGrades, GORD = { S: 0, A: 1, B: 2, C: 3 };
   const gradeEl = (g) => h('span', { class: `grade ${g}` }, g);
   const traits = (w) => {
     const t = [];
@@ -160,34 +161,39 @@
     if (TIERS.weaponNotes[w.id]) t.push(TIERS.weaponNotes[w.id]);
     return t.join(' · ');
   };
-  let sortKey = 'B';
+  let sortKey = 'tier';
   const wBody = h('tbody');
+  const byKey = (a, b) => sortKey === 'tier' ? a.tier - b.tier || GORD[WG[a.id][0]] - GORD[WG[b.id][0]] || RES.B[b.id].dpt - RES.B[a.id].dpt
+    : RES[sortKey][b.id].dpt - RES[sortKey][a.id].dpt;
   const renderWeapons = () => {
-    wBody.replaceChildren(...[...ranked].sort((a, b) => RES[sortKey][b.id].dpt - RES[sortKey][a.id].dpt).map((w) => {
-      const d = w.damage;
+    wBody.replaceChildren(...[...ranked].sort(byKey).map((w) => {
+      const d = w.damage, [g, why, srcs] = WG[w.id];
       return h('tr', {},
         h('td', { class: 'nm' }, rectSprite('items', w.sprite), w.name.ko.text),
         h('td', {}, String(w.tier)), h('td', {}, String(w.strReq.base)),
         h('td', {}, `${d.minBase}–${d.maxBase}`),
-        h('td', { class: 'num' }, RES.A[w.id].dpt.toFixed(2)), h('td', {}, gradeEl(grade.A[w.id])),
+        h('td', {}, gradeEl(g)),
+        h('td', { class: 'small', style: 'min-width:calc(80*var(--u))' }, why, ' ', tag(srcs.length ? '커뮤니티' : '추정'), ...srcs.map((k) => cite(TIERS.sources[k]))),
+        h('td', { class: 'num' }, RES.A[w.id].dpt.toFixed(2)),
         h('td', { class: 'num' }, RES.A_atReq[w.id].dpt.toFixed(2)),
-        h('td', { class: 'num' }, RES.B[w.id].dpt.toFixed(2)), h('td', {}, gradeEl(grade.B[w.id])),
+        h('td', { class: 'num' }, RES.B[w.id].dpt.toFixed(2)),
         h('td', { class: 'small' }, traits(w)),
       );
     }));
-    sortBar.replaceChildren(...[['A', '중반순'], ['A_atReq', '힘 충족순'], ['B', '후반순']].map(([k, l]) =>
+    sortBar.replaceChildren(...[['tier', '티어·등급순'], ['A', 'DPT 중반순'], ['A_atReq', 'DPT 힘 충족순'], ['B', 'DPT 후반순']].map(([k, l]) =>
       button(l, { size: 6, height: 16, pressed: k === sortKey, onclick: () => { sortKey = k; renderWeapons(); } })));
   };
   const sortBar = h('div', { class: 'sortbar' });
   const scen = GEAR.scenarios.list;
   section('weapons', '근접 무기 티어', rectSprite('items', WEAPON.Sword.sprite),
-    h('p', {}, '턴당 기대 피해(DPT)를 게임 공식 그대로 계산했습니다. 명중 확률, 상대 방어(DR), 공격 속도, 힘 부족 페널티, 초과 힘 보너스를 넣었습니다. 등급은 각 시나리오에서 DPT 순위로 나눈 구간입니다(상위 20% S, 다음 30% A, 다음 30% B, 나머지 C).', tag('코드 계산')),
+    h('p', {}, '등급은 같은 티어 무기끼리 비교한 값입니다. 무기는 층마다 나오는 티어가 정해져 있어서, 실제로는 같은 티어 안에서 고르게 되기 때문입니다. DPT 숫자에 기습, 막기, 명중 차이, 힘 요구치와 나무위키·DC 녹픽던 갤러리 평가를 더해 매겼습니다.', tag('추정'), tag('커뮤니티')),
+    h('p', { class: 'small' }, '턴당 기대 피해(DPT)는 게임 공식 그대로 계산했습니다. 명중 확률, 상대 방어(DR), 공격 속도, 힘 부족 페널티, 초과 힘 보너스를 넣었습니다.', tag('코드 계산')),
     h('ul', { class: 'small' }, ...scen.map((s) => h('li', {}, h('span', { class: 'hl' }, s.id === 'A' ? '중반' : s.id === 'B' ? '후반' : '힘 충족'), ` ${s.label_ko}`))),
     sortBar,
     h('div', { class: 'scroll-x' }, h('table', {},
-      h('thead', {}, h('tr', {}, ...['무기', '티어', '힘', '피해 +0', 'DPT 중반', '등급', 'DPT 힘 충족', 'DPT 후반', '등급', '특징'].map((x) => h('th', {}, x)))),
+      h('thead', {}, h('tr', {}, ...['무기', '티어', '힘', '피해 +0', '등급', '근거', 'DPT 중반', 'DPT 힘 충족', 'DPT 후반', '특징'].map((x) => h('th', {}, x)))),
       wBody)),
-    h('p', { class: 'small', style: 'margin-top:calc(3*var(--u))' }, '마법사의 지팡이는 마법사 전용이고 융합한 막대에 따라 성능이 달라져 순위에서 뺐습니다(31종). 읽는 법: 중반(힘 14)에는 힘 요구치가 낮은 3티어가 앞서고, 후반(+6, 힘 18)에는 5티어와 철퇴가 앞섭니다. 결투자 무기 능력, 인챈트, 특성, 기습, 막기는 DPT에 넣지 않았습니다(특징 칸 참고).'),
+    h('p', { class: 'small', style: 'margin-top:calc(3*var(--u))' }, '마법사의 지팡이는 마법사 전용이고 융합한 막대에 따라 성능이 달라져 순위에서 뺐습니다(31종). DPT 읽는 법: 중반(힘 14)에는 힘 요구치가 낮은 3티어가 앞서고, 후반(+6, 힘 18)에는 5티어와 철퇴가 앞섭니다. 결투자 무기 능력, 인챈트, 특성, 기습, 막기는 DPT에 넣지 않았고 등급 근거와 특징 칸에서 따로 다룹니다.'),
   );
   renderWeapons();
 
@@ -256,7 +262,11 @@
       h('li', {}, '막기 무기(방패, 육척봉, 도, 레이피어)는 공격력만 계산'),
       h('li', {}, '적 1명과의 정지 상태 전투만 가정: 적의 반격, 회복, 영웅의 방어구는 계산하지 않음'),
       h('li', {}, '몬스터는 기본 능력치 기준: 나무껍질 피부, 챔피언, 상승 보정 제외')),
-    h('h3', {}, '공개 자료'),
-    h('p', { class: 'small' }, '2026-11-05에 v4.0.x 기준 승률·선택률 통계와 커뮤니티 티어표를 찾아봤지만 없었습니다. 공식 블로그는 자동 접속이 막혀 직접 확인하지 못했습니다. 그래서 이 페이지의 판단은 모두 코드 수치와 설명문에만 근거합니다.'),
+    h('h3', {}, '커뮤니티 자료'),
+    h('ul', { class: 'small' },
+      h('li', {}, '나무위키 직업·아이템 문서(2026-10 수정본, v4.0.0 반영)와 DC 녹픽던 마이너 갤러리의 v4.0 이후 글(2026-10~11)을 읽고, 무기 등급 근거와 서브클래스 의견에 출처 링크를 달았습니다.'),
+      h('li', {}, 'DC 글은 추천 0~10, 댓글 몇 개 수준이라 합의라기보다 소수 의견입니다. 나무위키는 문장마다 언제 쓰였는지 알 수 없습니다.'),
+      h('li', {}, 'v4.0.x에서는 근접 무기 밸런스가 바뀌지 않아 v3.x 시절 무기 평가도 그대로 썼습니다. 저격수 "딜 반토막" 같은 v3 초기 서술은 이후 다시 바뀌어서 쓰지 않았습니다.'),
+      h('li', {}, '인챈트·글리프 등급은 커뮤니티 근거를 찾지 못해 추정 그대로입니다(DC의 마법부여 순위 글은 이미지에 이름이 없어 읽을 수 없었음). 레딧과 공식 블로그는 자동 접속이 막혀 보지 못했습니다.')),
   );
 })();

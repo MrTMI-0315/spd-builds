@@ -81,6 +81,8 @@ h3 { font-size: calc(8 * var(--u)); font-weight: 400; color: var(--white); margi
 .src:hover { color: var(--shpx); }
 .prov { display: inline-block; font-size: calc(5 * var(--u)); padding: 0 calc(2 * var(--u)); background: var(--track); color: var(--menu); margin-left: calc(2 * var(--u)); vertical-align: middle; }
 .prov.inf { color: #FF8800; }
+.prov.comm { color: #66B3FF; }
+.cite { font-size: calc(5 * var(--u)); margin-left: calc(2 * var(--u)); white-space: nowrap; }
 .grid { display: grid; gap: calc(3 * var(--u)); grid-template-columns: repeat(auto-fill, minmax(calc(64 * var(--u)), 1fr)); }
 .card { background: var(--slot); padding: calc(3 * var(--u)); min-width: 0; }
 .row { display: flex; align-items: center; gap: calc(3 * var(--u)); flex-wrap: wrap; }

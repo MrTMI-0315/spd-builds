@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 H = json.loads((ROOT / "data/heroes.json").read_text())
 G = json.loads((ROOT / "data/gear.json").read_text())
 BUDGET = {1: 5, 2: 6, 3: 8, 4: 10}
-TAGS = {"코드 계산", "설명문 기준", "추정"}
+TAGS = {"코드 계산", "설명문 기준", "추정", "커뮤니티"}
 TALENT = H["talents"]
 SUB = {s["id"]: s for s in H["subclasses"]}
 ABIL = {a["id"]: a for a in H["abilities"]}
@@ -24,6 +24,8 @@ def check_tag(obj, where):
     assert obj.get("tag") in TAGS, f"{where}: bad tag {obj.get('tag')!r}"
     if obj["tag"] in ("코드 계산", "설명문 기준"):
         assert obj.get("quote") or any(ch.isdigit() for ch in obj.get("why", "")), f"{where}: needs a quoted number"
+    if obj["tag"] == "커뮤니티":
+        assert obj.get("src", [""])[0].startswith("https://"), f"{where}: community claim needs src [url, date]"
 
 
 out, errors = {}, []
@@ -39,6 +41,8 @@ for cls in H["classes"]:
         assert b.get("summaryTag") in TAGS, f"{cid}: summaryTag"
         assert b["subclassVerdict"]["pick"] in cls["subclasses"] + [None], f"{cid}: verdict pick"
         check_tag(b["subclassVerdict"], f"{cid} verdict")
+        for c in b["subclassVerdict"].get("community", []):
+            assert c["text"] and all(u.startswith("https://") for u, _ in c["src"]), f"{cid}: community src"
         assert {x["subclass"] for x in b["builds"]} == set(cls["subclasses"]), f"{cid}: one build per subclass"
         for build in b["builds"]:
             where = f"{cid}/{build['subclass']}"

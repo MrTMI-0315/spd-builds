@@ -3,17 +3,25 @@
   "summary": "마법사의 지팡이에 강화를 몰고 융합한 마법 막대로 싸우는 직업입니다. 근접 무기 DPT가 낮아 막대 충전과 방어막 특성으로 교전 수를 버팁니다.",
   "summaryTag": "추정",
   "subclassVerdict": {
-    "pick": "BATTLEMAGE",
-    "why": "흑마법사 표식은 +0 막대 15%라 강화에 크게 의존, 전투 마법사 효과는 매 타격 발동",
-    "tag": "코드 계산",
-    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/wands/Wand.java:218-219 Starts at 15% (0.92^(lvl×charges+1) - 0.07); core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/melee/MagesStaff.java:178-182 BATTLEMAGE → wand.onHit",
+    "pick": "WARLOCK",
+    "why": "9챌·고챌에서는 흑마법사가 기본 선택입니다. 영혼 표식으로 체력과 허기를 함께 회복해 \"개사기\"라는 평이 많습니다(최근 S·16건). \"9챌 세부직업 우열\" 글에서도 마법사는 흑마로 꼽혔습니다.",
+    "tag": "커뮤니티",
+    "quote": "근데 9챌은 무조건 흑마임",
+    "src": [
+      "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=80968",
+      "2026-07-13"
+    ],
     "community": [
       {
-        "text": "마음에 드는 고티어 근접 무기를 얻었다면 흑마법사를 권합니다. 타락·굴절광 막대와 궁합이 좋다는 평입니다.",
+        "text": "노챌·저챌은 전투 마법사도 많이 씁니다. 붕괴·충격파 전마가 편하다는 평이 있고, 풍요의 뿔·피의 성배가 있으면 흑마 상위호환이라는 의견도 있습니다.",
         "src": [
           [
-            "https://namu.wiki/w/Shattered_Pixel_Dungeon/직업",
-            "2026-10-13"
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84454",
+            "2026-11-04"
+          ],
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83353",
+            "2026-09-22"
           ]
         ]
       }

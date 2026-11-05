@@ -3,25 +3,25 @@
   "summary": "부러진 인장의 방어막과 힘 보너스(철인)로 무거운 무기·갑옷을 일찍 드는 정면 돌파형 직업입니다. 강화는 갑옷과 주무기 한 자루에 몰아줍니다.",
   "summaryTag": "추정",
   "subclassVerdict": {
-    "pick": "BERSERKER",
-    "why": "광포화 방어막이 (8+2×갑옷 강화)×잃은 체력에 따라 1~3배라 갑옷 강화만 챙기면 돼 운영이 단순함",
-    "tag": "코드 계산",
-    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Berserk.java:211 shieldMultiplier = 1f + 2*(1-HP/HT)^3; :220-222 baseShield = 8 + 2*armor.buffedLvl()",
+    "pick": "GLADIATOR",
+    "why": "판금(또는 미늘)에 강화를 몰고 쌍차·돌 건틀릿으로 콤보를 쌓는 \"매치기 검투사\"가 뉴비도 깨는 정석이라는 의견이 압도적입니다(검투사 A·24건, 광전사 C~D·28건). 광전사는 맞아야 분노가 차는 구조라 평이 나쁩니다.",
+    "tag": "커뮤니티",
+    "quote": "전붕이는 검투사가 본체임",
+    "src": [
+      "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=81608",
+      "2026-07-29"
+    ],
     "community": [
       {
-        "text": "검투사가 더 안정적이라는 의견이 우세합니다. 갑옷을 강화하지 않으면 광전사는 분노를 못 쌓고, 초보는 검투사를 고르라는 댓글이 여럿입니다. 갑옷에 강화를 몰아줄 계획일 때 광전사를 고르세요.",
+        "text": "광전사는 충격파·이식 막대, 인내의 반지, 특대 방패처럼 방어·유틸을 갖췄을 때만 쓸 만하다는 의견입니다. 9챌 노강줌 광전사 클리어 글(추천 19)처럼 고수용 사례는 있습니다.",
         "src": [
           [
-            "https://namu.wiki/w/Shattered_Pixel_Dungeon/직업",
-            "2026-10-13"
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=80671",
+            "2026-07-05"
           ],
           [
             "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83889",
             "2026-10-12"
-          ],
-          [
-            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84269",
-            "2026-10-27"
           ]
         ]
       }

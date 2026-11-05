@@ -3,17 +3,25 @@
   "summary": "성서 충전이 모든 행동의 비용이므로 식사·반지로 충전을 늘리는 것이 기본입니다. 성서는 충전을 쓸수록 레벨이 올라 최대 충전이 늘어납니다.",
   "summaryTag": "추정",
   "subclassVerdict": {
-    "pick": "PALADIN",
-    "why": "천벌이 무기 마법 위력을 +300% 올려 타락이 +0에서도 처치 시 확정. v4.0 타락·음침 변경도 천벌 연계를 명시",
-    "tag": "코드 계산",
-    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/Weapon.java:561 SmiteTracker → multi += 3f; items/weapon/enchantments/Corrupting.java:47 (lvl+5)/(lvl+20)*multi; v4.0: Corrupting can now apply if ANY part of the corrupting hit kills (e.g. smite)",
+    "pick": "PRIEST",
+    "why": "일반적으로 사제가 성기사보다 세다는 의견이 우세합니다(최근 사제 A·16건, 성기사 B·9건). 충전의 반지·붕괴 막대·풍요의 뿔과 궁합이 좋고, 고챌에서 원거리 딜을 쉽게 넣습니다.",
+    "tag": "커뮤니티",
+    "quote": "3. 일반적으로 사제가 성기사보다 셈.",
+    "src": [
+      "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84031",
+      "2026-10-17"
+    ],
     "community": [
       {
-        "text": "일반적으로는 사제가 성기사보다 세다는 댓글이 다수입니다. 충전의 반지와 붕괴 막대가 있으면 사제, 근접전이 강제되는 챌린지에서는 성기사라는 의견입니다.",
+        "text": "성기사는 무기·방어구가 일찍 좋게 뜨거나 근접전이 강제되는 챌린지일 때 고른다는 의견입니다. v3.x 시절에는 신비·충전 반지 성기사 호평이 많았습니다.",
         "src": [
           [
-            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84031",
-            "2026-10-17"
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83036",
+            "2026-09-07"
+          ],
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=75952",
+            "2025-12-16"
           ]
         ]
       }

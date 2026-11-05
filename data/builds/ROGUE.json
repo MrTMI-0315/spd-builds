@@ -3,11 +3,29 @@
   "summary": "그림자의 망토로 투명화해 먼저 치고 빠지는 직업입니다. 투명화 시간을 늘리는 특성과 반지 보너스를 묶어 기습 위주로 운영합니다.",
   "summaryTag": "추정",
   "subclassVerdict": {
-    "pick": "ASSASSIN",
-    "why": "9턴 마음가짐 공격이 +50%·피해 3번 굴려 최고값이고, 향상된 치사율 3이면 일반 적은 체력 100% 미만 즉사",
-    "tag": "코드 계산",
-    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Preparation.java:66 LVL_4( 9, 0.50f, 3); :83 {.50f, .67f, .83f, 1.0f}",
-    "community": [{"text": "프리러너를 권하는 쪽이 조금 우세합니다(신속·흐름 상형문자 사슬 갑옷 조합, 고챌린지용). 충전의 반지가 있으면 암살자라는 의견도 있어 갈립니다.", "src": [["https://namu.wiki/w/Shattered_Pixel_Dungeon/직업", "2026-10-13"], ["https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84208", "2026-10-25"]]}]
+    "pick": "FREERUNNER",
+    "why": "고챌에서는 안 맞는 게 가장 중요해, 투명화와 프리러닝으로 카이팅하는 프리러너가 1티어라는 평입니다(최근 프리러너 A·11건, 암살자 B·8건).",
+    "tag": "커뮤니티",
+    "quote": "고챌은 안맞을 수록 좋으니까 당연히 잘 안맞는 프리러너가 좋아",
+    "src": [
+      "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=81620",
+      "2026-07-29"
+    ],
+    "community": [
+      {
+        "text": "시기에 따라 갈립니다. v3.x 시절 글에서는 암살자의 칼로 한 방에 암살하는 암살자가 더 호평이었습니다(A·15건). 노챌·재미 위주면 암살자도 충분하지만, 최근에는 \"너무 낡은 캐릭터\"라는 글(추천 24)도 있습니다.",
+        "src": [
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=79808",
+            "2026-06-05"
+          ],
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=82213",
+            "2026-08-13"
+          ]
+        ]
+      }
+    ]
   },
   "builds": [
     {

@@ -4,16 +4,24 @@
   "summaryTag": "추정",
   "subclassVerdict": {
     "pick": "SNIPER",
-    "why": "v4.0에서 숲지기 핵심인 나무껍질이 레벨의 50%→33%로 줄고 헤쳐진 풀에서 안 터짐. 변경 내역에 저격수 항목 없음",
-    "tag": "코드 계산",
-    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/ui/changelist/v4_X_Changes.java:367-368 Barkskin no longer triggers from furrowed grass / reduced to 33% of hero level, from 50%",
+    "why": "저격의 반지나 신비의 반지가 나오면 저격수로 갑니다. 활의 방어 무시가 강해 고챌에서도 선호됩니다(최근 A·12건). 숲지기는 v4.0 나무껍질 너프 뒤 평가가 내려갔습니다(B).",
+    "tag": "커뮤니티",
+    "quote": "저격수 전직하면 누구나 깰수있을 정도로 저격수가 사기여서",
+    "src": [
+      "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=82225",
+      "2026-08-14"
+    ],
     "community": [
       {
-        "text": "저격의 반지에 강화를 몰아주는 저격수가 무난하다는 댓글이 있습니다. 씨앗을 돌로 바꾸는 화석 장신구를 들었다면 숲지기는 피하라는 의견도 있습니다.",
+        "text": "저격 반지가 없으면 숲지기로 가라는 의견도 있습니다. 숲지기는 너프 뒤에도 풀 너머 시야와 방어력 덕에 임프 퀘스트 금고에서 강하다는 평입니다.",
         "src": [
           [
-            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84022",
-            "2026-10-17"
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83764",
+            "2026-10-08"
+          ],
+          [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83114",
+            "2026-09-11"
           ]
         ]
       }

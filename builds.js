@@ -33,6 +33,11 @@
   // [url, date] → "나무위키 10-27" / "DC #84430 11-04"
   const cite = ([url, date]) => h('a', { class: 'cite', href: url, target: '_blank', rel: 'noopener' },
     url.includes('namu.wiki') ? '나무위키' : `DC #${new URL(url).searchParams.get('no')}`, ` ${date.slice(5)}`);
+  const DC = 'https://gall.dcinside.com/mgallery/board/view/?id=spd&no=';
+  // [grade, why, mentions, [[no,date]…], quote] → evidence cell contents
+  const evidence = ([, why, n, posts, q]) => [why, ' ', tag(posts.length ? '커뮤니티' : '추정'),
+    posts.length ? h('span', { class: 'dim' }, ` 언급 ${n}건`) : null, ...posts.flatMap(([no, d]) => [' ', cite([DC + no, d])]),
+    q ? h('div', { class: 'dim' }, `“${q}”`) : null];
   const rectSprite = (sheet, r) => sprite(sheet, Array.isArray(r) ? r : [r.x, r.y, r.w, r.h]);
   const talentIcon = (id, cls) => {
     const t = TALENT[id];
@@ -136,7 +141,7 @@
       h('div', { class: 'small' }, '시작 장비: ', (cls.startItems || []).map((i) => i.name_ko).filter(Boolean).join(', '), ' ', srcLink(cls.src)),
       B ? [
         h('p', { style: 'margin-top:calc(4*var(--u))' }, B.summary, tag(B.summaryTag)),
-        h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag)),
+        h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag), B.subclassVerdict.src ? [' ', cite(B.subclassVerdict.src)] : null),
         ...(B.subclassVerdict.community || []).map((c) => h('p', { class: 'small', style: 'margin-top:0' }, tag('커뮤니티'), ' ', c.text, ...c.src.flatMap((x) => [' ', cite(x)]))),
         h('div', { class: 'builds' }, ...B.builds.map((b) => buildCard(cls, b, B.subclassVerdict.pick))),
       ] : h('p', { class: 'pending' }, '빌드 작성 중입니다.'),
@@ -151,7 +156,7 @@
   /* ---------------- weapon tiers ---------------- */
   // Grade = hand-written, compared within the same weapon tier (data/tiers.js weaponGrades).
   const ranked = GEAR.meleeWeapons.filter((w) => w.id !== 'MagesStaff');
-  const WG = TIERS.weaponGrades, GORD = { S: 0, A: 1, B: 2, C: 3 };
+  const WG = TIERS.weaponGrades, GORD = { S: 0, A: 1, B: 2, C: 3, D: 4 };
   const gradeEl = (g) => h('span', { class: `grade ${g}` }, g);
   const traits = (w) => {
     const t = [];
@@ -161,32 +166,32 @@
     if (TIERS.weaponNotes[w.id]) t.push(TIERS.weaponNotes[w.id]);
     return t.join(' · ');
   };
-  let sortKey = 'tier';
+  let sortKey = 'grade';
   const wBody = h('tbody');
-  const byKey = (a, b) => sortKey === 'tier' ? a.tier - b.tier || GORD[WG[a.id][0]] - GORD[WG[b.id][0]] || RES.B[b.id].dpt - RES.B[a.id].dpt
+  const byKey = (a, b) => sortKey === 'grade' ? GORD[WG[a.id][0]] - GORD[WG[b.id][0]] || WG[b.id][2] - WG[a.id][2]
     : RES[sortKey][b.id].dpt - RES[sortKey][a.id].dpt;
   const renderWeapons = () => {
     wBody.replaceChildren(...[...ranked].sort(byKey).map((w) => {
-      const d = w.damage, [g, why, srcs] = WG[w.id];
+      const d = w.damage, g = WG[w.id][0];
       return h('tr', {},
         h('td', { class: 'nm' }, rectSprite('items', w.sprite), w.name.ko.text),
         h('td', {}, String(w.tier)), h('td', {}, String(w.strReq.base)),
         h('td', {}, `${d.minBase}–${d.maxBase}`),
         h('td', {}, gradeEl(g)),
-        h('td', { class: 'small', style: 'min-width:calc(80*var(--u))' }, why, ' ', tag(srcs.length ? '커뮤니티' : '추정'), ...srcs.flatMap((k) => [' ', cite(TIERS.sources[k])])),
+        h('td', { class: 'small', style: 'min-width:calc(90*var(--u))' }, ...evidence(WG[w.id])),
         h('td', { class: 'num' }, RES.A[w.id].dpt.toFixed(2)),
         h('td', { class: 'num' }, RES.A_atReq[w.id].dpt.toFixed(2)),
         h('td', { class: 'num' }, RES.B[w.id].dpt.toFixed(2)),
         h('td', { class: 'small' }, traits(w)),
       );
     }));
-    sortBar.replaceChildren(...[['tier', '티어·등급순'], ['A', 'DPT 중반순'], ['A_atReq', 'DPT 힘 충족순'], ['B', 'DPT 후반순']].map(([k, l]) =>
+    sortBar.replaceChildren(...[['grade', '등급순'], ['A', 'DPT 중반순'], ['A_atReq', 'DPT 힘 충족순'], ['B', 'DPT 후반순']].map(([k, l]) =>
       button(l, { size: 6, height: 16, pressed: k === sortKey, onclick: () => { sortKey = k; renderWeapons(); } })));
   };
   const sortBar = h('div', { class: 'sortbar' });
   const scen = GEAR.scenarios.list;
   section('weapons', '근접 무기 티어', rectSprite('items', WEAPON.Sword.sprite),
-    h('p', {}, '등급은 같은 티어 무기끼리 비교한 값입니다. 무기는 층마다 나오는 티어가 정해져 있어서, 실제로는 같은 티어 안에서 고르게 되기 때문입니다. DPT 숫자에 기습, 막기, 명중 차이, 힘 요구치와 나무위키·DC 녹픽던 갤러리 평가를 더해 매겼습니다.', tag('추정'), tag('커뮤니티')),
+    h('p', {}, '등급은 DC 녹픽던 마이너 갤러리 글 694개(2025-09~2026-11, 댓글·추천이 달린 글)를 무기 이름으로 검색해 모은 평가를 바탕으로 매겼습니다. 갤러리처럼 티어와 상관없이 "끝까지 쓸 만한가"를 기준으로 비교했습니다. 언급 수는 그 무기를 평가한 글·댓글 수(대략)이고, 언급이 없는 무기는 추정입니다.', tag('커뮤니티')),
     h('p', { class: 'small' }, '턴당 기대 피해(DPT)는 게임 공식 그대로 계산했습니다. 명중 확률, 상대 방어(DR), 공격 속도, 힘 부족 페널티, 초과 힘 보너스를 넣었습니다.', tag('코드 계산')),
     h('ul', { class: 'small' }, ...scen.map((s) => h('li', {}, h('span', { class: 'hl' }, s.id === 'A' ? '중반' : s.id === 'B' ? '후반' : '힘 충족'), ` ${s.label_ko}`))),
     sortBar,
@@ -213,10 +218,10 @@
   /* ---------------- enchant / glyph ---------------- */
   const pct = (v) => v == null ? '—' : Math.round(v * 100) + '%';
   function enchTable(kind, list, grades) {
-    const order = { S: 0, A: 1, B: 2, C: 3 };
-    const rows = [...list].filter((e) => grades[e.id]).sort((a, b) => order[grades[a.id][0]] - order[grades[b.id][0]]);
+    const order = { S: 0, A: 1, B: 2, C: 3, D: 4 };
+    const rows = [...list].filter((e) => grades[e.id]).sort((a, b) => order[grades[a.id][0]] - order[grades[b.id][0]] || grades[b.id][2] - grades[a.id][2]);
     return h('div', { class: 'scroll-x' }, h('table', {},
-      h('thead', {}, h('tr', {}, ...['이름', '등급', '희귀도', '발동 +0→+6', '효과', '판단 근거', 'v4 변경 (원문)'].map((x) => h('th', {}, x)))),
+      h('thead', {}, h('tr', {}, ...['이름', '등급', '희귀도', '발동 +0→+6', '효과', '근거', 'v4 변경 (원문)'].map((x) => h('th', {}, x)))),
       h('tbody', {}, ...rows.map((e) => {
         const p = e.proc || {};
         const chg = (e.changelog || []).map((c) => `${c.version}: ${plain(c.quote).replace(/"\)\);?$/, '')}`).join('\n');
@@ -226,15 +231,15 @@
           h('td', { class: 'small' }, `${({ common: '일반', uncommon: '고급', rare: '희귀' })[e.rarity.bucket]} ${e.rarity.weightPct}%`),
           h('td', { class: 'num' }, p.chanceAt0 != null ? `${pct(p.chanceAt0)}→${pct(p.chanceAt6)}` : '본문 참고'),
           h('td', { class: 'small', style: 'min-width:calc(80*var(--u))' }, e.desc.ko.text),
-          h('td', { class: 'small', style: 'min-width:calc(70*var(--u))' }, grades[e.id][1], ' ', tag('추정')),
+          h('td', { class: 'small', style: 'min-width:calc(90*var(--u))' }, ...evidence(grades[e.id])),
           h('td', { class: 'small', style: 'white-space:pre-line;min-width:calc(60*var(--u))' }, chg || '—'));
       }))));
   }
   section('enchants', '무기 인챈트', h('span', {}, rectSprite('items', WEAPON.RunicBlade.sprite)),
-    h('p', {}, '발동 확률과 희귀도는 코드에서 계산했고, 등급은 그 수치와 설명문, v4.0 변경 내역을 보고 판단했습니다. 저주는 뺐습니다.', tag('코드 계산'), tag('추정')),
+    h('p', {}, '발동 확률과 희귀도는 코드에서 계산했습니다. 등급은 DC 녹픽던 갤러리 평가(근접 무기 기준)로 매겼습니다. 활(영혼의 활) 기준 평가는 빼고, 근접 평가가 없으면 추정으로 표시했습니다. v4.0 이전 글은 v4.0에서 바뀐 인챈트(맹독·예리·수정·타락·섬뜩·생장)에 대해서는 참고만 했습니다. 저주는 뺐습니다.', tag('코드 계산'), tag('커뮤니티')),
     enchTable('enchantments', GEAR.enchantments.items, TIERS.enchantments));
   section('glyphs', '방어구 글리프', rectSprite('items', GEAR.armor.items[2].sprite),
-    h('p', {}, '등급 기준은 인챈트와 같습니다. 확률 대신 조건으로 발동하는 글리프는 "본문 참고"로 표시했습니다.', tag('코드 계산'), tag('추정')),
+    h('p', {}, '등급 기준은 인챈트와 같습니다. 글리프는 v4.0에서 바뀌지 않아 v3.x 시절 글(2026-05 "상형문자 청문회" 연재 포함)도 그대로 썼습니다. 확률 대신 조건으로 발동하는 글리프는 "본문 참고"로 표시했습니다.', tag('코드 계산'), tag('커뮤니티')),
     enchTable('glyphs', GEAR.glyphs.items, TIERS.glyphs));
 
   /* ---------------- method ---------------- */

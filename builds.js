@@ -17,7 +17,8 @@
   const RES = Object.fromEntries(GEAR.scenarios.list.map((s) => [s.id, s.results]));
 
   const plain = (s) => (s || '').replace(/_/g, '').replace(/\*\*/g, '');
-  const quoteText = (s) => plain(s).replace(/core\/src\/main\/java\/com\/shatteredpixel\/shatteredpixeldungeon\//g, '').replace(/core\/src\/main\/assets\/messages\//g, '');
+  // keep underscores inside identifiers (HASTY_RETREAT, items_ko), drop _emphasis_ markers
+  const quoteText = (s) => (s || '').replace(/(?<![A-Za-z0-9])_|_(?![A-Za-z0-9])/g, '').replace(/\*\*/g, '').replace(/core\/src\/main\/java\/com\/shatteredpixel\/shatteredpixeldungeon\//g, '').replace(/core\/src\/main\/assets\/messages\//g, '');
   const enchName = (e) => e.name.ko.text.replace(/\s*%s\s*/, '').trim();
   function markup(str) {
     const out = [];

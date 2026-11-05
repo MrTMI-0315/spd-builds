@@ -68,7 +68,7 @@
     h('span', {}, tag('코드 계산'), ' 게임 코드로 계산한 값'),
     h('span', {}, tag('설명문 기준'), ' 게임 속 한국어 설명의 수치'),
     h('span', {}, tag('추정'), ' 수치를 바탕으로 한 판단'),
-    h('span', {}, tag('커뮤니티'), ' 나무위키·DC 녹픽던 갤러리 의견 (v4.0 이후 글 위주, 추천 수가 적어 소수 의견)'),
+    h('span', {}, tag('커뮤니티'), ' DC 녹픽던 마이너 갤러리 글·댓글과 특성 칼럼(출처 링크 표시)'),
   );
   $('#foot-meta').textContent = `기준: v${T.meta.version} (커밋 ${T.meta.commit.hash.slice(0, 7)}, ${T.meta.commit.date}). 빌드 초안은 tools/merge_builds.py로 포인트 예산을 검증했습니다.`;
 
@@ -114,18 +114,18 @@
       h('div', { class: 'tier-h' }, h('span', {}, '갑옷 능력'), h('span', { class: 't5' }, 'Lv21+ · 드워프 제왕의 왕관')),
       h('div', { class: 'talent' }, rectSprite('heroes', ab.rect),
         h('div', { class: 'tn' }, h('span', { 'data-tip': plain(ab.desc_ko) }, ab.name_ko), tag(b.armorAbility.tag)),
-        h('div', { class: 'why' }, b.armorAbility.why, b.armorAbility.quote ? h('span', { class: 'dim' }, ` — “${quoteText(b.armorAbility.quote)}”`) : null)),
+        h('div', { class: 'why' }, b.armorAbility.why, b.armorAbility.quote ? h('span', { class: 'dim' }, ` — “${quoteText(b.armorAbility.quote)}”`) : null, b.armorAbility.src ? [' ', cite(b.armorAbility.src)] : null)),
       ...tierBlock(4),
       b.bonus && b.bonus.length ? h('div', {},
         h('div', { class: 'tier-h' }, h('span', {}, '신성한 영감의 물약 (+2)'), h('span', { class: 't5' }, '티어당 1회')),
         ...b.bonus.map((x) => h('div', { class: 'talent' }, talentIcon(x.id, cls.id),
           h('div', { class: 'tn' }, h('span', {}, `${x.tier}티어 · ${TALENT[x.id].title_ko} +${x.points}`), tag(x.tag)),
-          h('div', { class: 'why' }, x.why)))) : null,
+          h('div', { class: 'why' }, x.why, x.src ? [' ', cite(x.src)] : null)))) : null,
       h('div', { class: 'tier-h' }, h('span', {}, '핵심 장비'), h('span', {})),
       ...b.gear.map((gi) => h('div', { class: 'gear-row' },
         h('div', { class: 'slot' }, gearSprite(gi.ref) || h('span', {}, gi.slot)),
         h('div', {}, h('div', { class: 'tn row', style: 'gap:calc(2*var(--u))' }, h('span', {}, gearName(gi)), tag(gi.tag)),
-          h('div', { class: 'small' }, gi.why, gi.quote ? h('span', { class: 'dim' }, ` — “${quoteText(gi.quote)}”`) : null)))),
+          h('div', { class: 'small' }, gi.why, gi.quote ? h('span', { class: 'dim' }, ` — “${quoteText(gi.quote)}”`) : null, gi.src ? [' ', cite(gi.src)] : null)))),
       h('div', { class: 'tier-h' }, h('span', {}, '운영'), tag(b.playstyleTag)),
       h('p', { class: 'small', style: 'margin:0' }, b.playstyle),
     );
@@ -269,9 +269,10 @@
       h('li', {}, '몬스터는 기본 능력치 기준: 나무껍질 피부, 챔피언, 상승 보정 제외')),
     h('h3', {}, '커뮤니티 자료'),
     h('ul', { class: 'small' },
-      h('li', {}, '나무위키 직업·아이템 문서(2026-10 수정본, v4.0.0 반영)와 DC 녹픽던 마이너 갤러리의 v4.0 이후 글(2026-10~11)을 읽고, 무기 등급 근거와 서브클래스 의견에 출처 링크를 달았습니다.'),
-      h('li', {}, 'DC 글은 추천 0~10, 댓글 몇 개 수준이라 합의라기보다 소수 의견입니다. 나무위키는 문장마다 언제 쓰였는지 알 수 없습니다.'),
-      h('li', {}, 'v4.0.x에서는 근접 무기 밸런스가 바뀌지 않아 v3.x 시절 무기 평가도 그대로 썼습니다. 저격수 "딜 반토막" 같은 v3 초기 서술은 이후 다시 바뀌어서 쓰지 않았습니다.'),
-      h('li', {}, '인챈트·글리프 등급은 커뮤니티 근거를 찾지 못해 추정 그대로입니다(DC의 마법부여 순위 글은 이미지에 이름이 없어 읽을 수 없었음). 레딧과 공식 블로그는 자동 접속이 막혀 보지 못했습니다.')),
+      h('li', {}, 'DC 녹픽던 마이너 갤러리(id=spd)를 무기·인챈트·글리프·전직·갑옷 능력 이름 등 키워드 116개로 검색했습니다. 댓글이나 추천이 달린 글 694개(2025-09-29~2026-11-05)의 본문과 댓글 5,238개를 모아 항목별로 평가를 정리했습니다.'),
+      h('li', {}, '전사·마법사·도적·사냥꾼 특성 배분은 갤러리 칼럼 "녹픽던 특성 공략 최신판"(#82739, #82783, 2026-08 v4.0 베타 시점)을 그대로 따랐습니다. 숫자 배분과 특성 순서는 칼럼 설명문으로 검증했습니다. v4.0 정식판에서 바뀐 특성은 수치뿐이라 배분은 그대로 유효합니다. 결투자·성직자는 칼럼이 아직 없어 특성을 바꾸지 않았습니다.'),
+      h('li', {}, '언급 수는 그 항목을 평가한 글·댓글 수를 대략 센 값입니다. 추천 수는 대부분 0~20이라, 많이 언급될수록 믿을 만하다는 정도로 읽어 주세요. 다른 변형 게임(총픽던, 블픽던 등) 글은 뺐습니다.'),
+      h('li', {}, 'v4.0.x에서는 근접 무기와 글리프가 바뀌지 않아 v3.x 시절 글도 그대로 썼습니다. v4.0에서 바뀐 인챈트(맹독·예리·수정·타락·섬뜩·생장), 숲지기 나무껍질, 수도사는 v4.0 베타(2026-08) 이후 글을 우선했습니다.'),
+      h('li', {}, '레딧과 공식 블로그는 자동 접속이 막혀 보지 못했습니다.')),
   );
 })();

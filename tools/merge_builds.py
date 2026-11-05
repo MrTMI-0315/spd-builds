@@ -67,6 +67,10 @@ for cls in H["classes"]:
                 assert x["id"] in owned[x["tier"]], f"{where}: bonus {x['id']}"
                 assert x["tag"] in TAGS
             assert all(v <= 2 for v in per_tier.values()), f"{where}: bonus > 2 in a tier"
+            base = {t["id"]: t["points"] for t in build["talents"]}
+            for x in build.get("bonus", []):
+                total = base.get(x["id"], 0) + x["points"]
+                assert total <= TALENT[x["id"]]["maxPoints"], f"{where}: {x['id']} base+bonus {total} > max"
             for gi in build["gear"]:
                 assert gi.get("ref") in GEAR_IDS or gi.get("name"), f"{where}: gear {gi}"
                 check_tag(gi, f"{where}/gear")

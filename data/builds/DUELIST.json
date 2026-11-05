@@ -30,8 +30,8 @@
   "builds": [
     {
       "subclass": "CHAMPION",
-      "title": "시미타 칼춤 + 철퇴 챔피언",
-      "concept": "보조 무기 시미타의 칼춤(턴 소모 없음, 공격 속도 +60%)을 켠 뒤 주 무기 철퇴로 때립니다. 이중 강화로 시미타는 철퇴와 같은 강화 수치를 공짜로 얻습니다.",
+      "title": "특대 도끼 + 더크 챔피언",
+      "concept": "주 무기 하나(특대 도끼 등 5티어)에 강화를 몰고, 이중 강화로 보조 무기 더크를 같은 강화 수치로 들어 은신 점멸을 섞습니다. 노챌에서는 특대 도끼와 특대 방패를 함께 드는 조합도 추천됩니다.",
       "talents": [
         {
           "id": "PATIENT_STRIKE",
@@ -137,47 +137,56 @@
       "gear": [
         {
           "slot": "weapon",
-          "ref": "Scimitar",
-          "why": "중반 주 무기(A DPT 4.21, 검 4.56 다음), 후반엔 보조. 칼춤은 철퇴 공격에도 적용",
-          "tag": "코드 계산",
-          "quote": "scenarios A: Scimitar dpt 4.21, strReq 14; core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/Weapon.java:326 SwordDance → multi += 0.6f (영웅 버프)"
+          "why": "노챌 챔피언은 특대 도끼·특대 방패 5티어 2개가 재밌고 셀 것이라는 추천",
+          "tag": "커뮤니티",
+          "quote": "노챌이면 챔피언에 완반빼고 특끼-특방이 재밌고 셀듯",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=81618",
+            "2026-07-29"
+          ],
+          "ref": "Greataxe"
         },
         {
           "slot": "weapon",
-          "ref": "Flail",
-          "why": "후반 주 무기. B DPT 30.10(특대 도끼 30.70)에 +6 요구 힘 13(도끼 17). 힘 14면 A 2.51",
-          "tag": "코드 계산",
-          "quote": "scenarios B: Flail dpt 30.10 req 13, Greataxe dpt 30.70 req 17; A: Flail dpt 2.51 (req 16, STR 14)"
+          "why": "보조 무기로 강화 공유. 점멸·투명 유틸",
+          "tag": "커뮤니티",
+          "quote": "난 6챌충이라 더크 쓸땐 걍 무조건 챔피언만 하는데ㅋㅋ 무지성 무기강화.. 편해",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84473",
+            "2026-11-05"
+          ],
+          "ref": "Dirk"
+        },
+        {
+          "slot": "weapon",
+          "why": "특대 도끼와 함께 드는 5티어 보조",
+          "tag": "커뮤니티",
+          "quote": "노챌이면 챔피언에 완반빼고 특끼-특방이 재밌고 셀듯",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=81618",
+            "2026-07-29"
+          ],
+          "ref": "Greatshield"
         },
         {
           "slot": "enchantment",
-          "ref": "Blazing",
-          "why": "칼춤으로 타수가 늘어 발동이 잦고, 원소 해방으로 범위 화염",
-          "tag": "설명문 기준",
-          "quote": "이 마법은 무기에서 화염을 내뿜어 적을 불태우고, 이미 불타는 적에게 추가 피해를 줍니다."
-        },
-        {
-          "slot": "glyph",
-          "ref": "Affection",
-          "why": "근접에서 맞는 일이 잦아 매혹으로 공격 기회를 얻음",
-          "tag": "설명문 기준",
-          "quote": "이 강력한 상형문자는 공격자의 마음을 조종하여, 잠시 동안 매혹에 빠트립니다."
-        },
-        {
-          "slot": "ring",
-          "name": "분노의 반지",
-          "why": "칼춤 +60%와 같은 공격 속도 계산에 더해짐",
-          "tag": "코드 계산",
-          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/Weapon.java:323 multi = RingOfFuror.attackSpeedMultiplier(owner); :327 multi += 0.6f"
+          "why": "유지력. 9챌에서도 흡혈 무기 호평",
+          "tag": "커뮤니티",
+          "quote": "흡혈 특방",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=83633",
+            "2026-10-02"
+          ],
+          "ref": "Vampiric"
         }
       ],
-      "playstyle": "초반엔 레이피어 돌진으로 버티다 3티어가 나오면 시미타로 갈아탑니다. 힘 16을 넘기면 철퇴를 주 무기로 들고 강화를 몰아주며, 시미타는 이중 강화로 같은 수치를 받습니다. 전투마다 칼춤과 철퇴 돌리기를 번갈아 써서 충전을 돌려받습니다.",
-      "playstyleTag": "추정"
+      "playstyle": "초반엔 레이피어 돌진으로 버티다가 더크가 나오면 보조 무기로 들고 다닙니다. 챔피언 이후엔 주 무기에만 강화를 넣고(보조 무기는 강화 공유), 더크의 조용한 발걸음으로 기습 각을 만든 뒤 주 무기로 때립니다. 갤러리에서는 편하지만 고점과 저점 차이가 크다는 평이라, 고챌에서는 수도사가 더 많이 쓰입니다.",
+      "playstyleTag": "커뮤니티"
     },
     {
       "subclass": "MONK",
-      "title": "1티어 장비 수도사",
-      "concept": "자유로운 영혼 +3으로 천 갑옷과 징 박힌 장갑을 받아 에너지 획득을 3배로 만들고, 강화된 수도사 능력을 계속 굴립니다.",
+      "title": "1티어 장비 + 더크 수도사",
+      "concept": "자유로운 영혼 +3으로 1티어 갑옷·무기를 쓸 때 에너지 획득을 3배로 만들고, 강화된 수도사 능력을 계속 굴립니다. 더크는 2~3강짜리를 점멸용으로 들고 다닙니다.",
       "talents": [
         {
           "id": "PATIENT_STRIKE",
@@ -291,10 +300,25 @@
       "gear": [
         {
           "slot": "weapon",
-          "ref": "Gloves",
-          "why": "DPT가 아니라 자유로운 영혼 때문에 고름. 그래도 B DPT 12.90으로 1티어 중 1위",
-          "tag": "코드 계산",
-          "quote": "scenarios B: Gloves dpt 12.90; Cudgel 10.73; WornShortsword 10.61"
+          "why": "수도사가 완력의 반지 몰빵과 함께 쓰는 메타",
+          "tag": "커뮤니티",
+          "quote": "무기 애매하면 징박힌장갑 구하면 되니 빌드 완성하기도 쉬워서 좋아",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=82225",
+            "2026-08-14"
+          ],
+          "ref": "Gloves"
+        },
+        {
+          "slot": "weapon",
+          "why": "2~3강짜리를 점멸 유틸로. 풍요의 뿔 + 더크 수도사 극찬",
+          "tag": "커뮤니티",
+          "quote": "풍뿔 더크 수도사는 신이야",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=78345",
+            "2026-04-11"
+          ],
+          "ref": "Dirk"
         },
         {
           "slot": "armor",
@@ -304,29 +328,30 @@
           "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/MonkEnergy.java:174 armor().tier <= 1 && points >= 3"
         },
         {
-          "slot": "enchantment",
-          "ref": "Venomous",
-          "why": "장갑은 공격이 2배 빨라 독이 빨리 쌓임. 강화 휘몰아치는 타격에도 적용",
-          "tag": "설명문 기준",
-          "quote": "맹독의 무기는 느리지만 치명적인 독을 주입하며, 독이 주입될 때마다 더욱 심화됩니다."
-        },
-        {
-          "slot": "glyph",
-          "ref": "Viscosity",
-          "why": "방어력이 낮은 천 갑옷이라 받은 피해를 나눠 받는 효과가 쓸모 있음",
-          "tag": "설명문 기준",
-          "quote": "이 상형문자는 착용자에게 가해진 피해를 조금씩 천천히 입히도록 만듭니다."
-        },
-        {
           "slot": "ring",
-          "name": "회피의 반지",
-          "why": "1티어 갑옷의 낮은 방어력을 회피로 메움. 완력의 반지는 특성과 충돌",
-          "tag": "설명문 기준",
-          "quote": "이 특성은 무기를 들지 않거나 완력의 반지를 착용 중일 때에는 적용되지 않습니다."
+          "why": "완반 수도사 추천. 드워프 이후에 나오면 가치가 떨어짐",
+          "tag": "커뮤니티",
+          "quote": "완반있으면 수도승완반 추천하지않나?",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=80638",
+            "2026-07-04"
+          ],
+          "name": "완력의 반지"
+        },
+        {
+          "slot": "enchantment",
+          "why": "장갑은 공격이 2배 빨라 흡혈이 자주 터짐",
+          "tag": "커뮤니티",
+          "quote": "무조건 흡혈",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=80609",
+            "2026-07-03"
+          ],
+          "ref": "Vampiric"
         }
       ],
-      "playstyle": "텐구 전까지는 레이피어로 버티고, 강화는 시작 천 갑옷에 그대로 쌓습니다. 수도사 선택 후 자유로운 영혼 +3을 찍고 장갑을 들면 처치마다 에너지가 3배로 차므로, 에너지 60% 이상을 유지하며 강화 날아차기와 명상을 돌립니다. 위험하면 눈속임 잔상으로 적 행동을 끊습니다.",
-      "playstyleTag": "추정"
+      "playstyle": "텐구 전까지는 레이피어로 버티고, 더크가 나오면 들고 다니며 점멸·투명으로 기습 각을 만듭니다. 수도사 선택 후 자유로운 영혼 +3을 찍고 징 박힌 장갑을 들면 처치마다 에너지가 3배로 차므로, 에너지를 유지하며 날아차기와 명상을 돌립니다. 완력의 반지가 있으면 반지에 강화를 몰아주는 완반 수도사도 갤러리에서 자주 추천됩니다. 고챌에서는 막대에 강화를 넣는 막대 수도사가 더 낫다는 평입니다.",
+      "playstyleTag": "커뮤니티"
     }
   ]
 }

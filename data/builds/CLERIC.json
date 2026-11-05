@@ -30,8 +30,8 @@
   "builds": [
     {
       "subclass": "PRIEST",
-      "title": "성창 승천 사제",
-      "concept": "충전 4짜리 성창을 주력 딜로 두고, 발광·태양 광선으로 견제합니다. 승천자의 형상에서는 주문 수만큼 강해지는 심판으로 다수전을 정리합니다.",
+      "title": "충전의 반지 삼위일체 사제",
+      "concept": "충전의 반지로 성서 충전을 늘려 성창·발광을 난사하고, 삼위일체로 감정해 둔 막대·반지 효과를 불러와 씁니다. 갤러리에서는 충전의 반지가 뜬 사제를 \"괴물\"이라고 부릅니다.",
       "talents": [
         {
           "id": "SEARING_LIGHT",
@@ -97,25 +97,28 @@
           "quote": "+2: 3턴의 디버프 면역효과와 20의 방어막을 부여합니다. 충전 소모 : 2"
         },
         {
-          "id": "JUDGEMENT",
+          "id": "MIND_FORM",
           "points": 4,
-          "why": "시야 내 모든 적 25-50, 이전 주문마다 +33%. 형상 중 주문을 몰아 쓰면 커짐",
-          "tag": "설명문 기준",
-          "quote": "+4: 시야 내 모든 적에게 25-50의 피해 ... 시전한 주문마다 +33% 피해를 추가로"
+          "why": "삼위일체를 사용할 때, 성직자가 선택한 아이템을 +6 강화의 효율로 발사하거나 던집니다.",
+          "tag": "추정"
         },
         {
-          "id": "DIVINE_INTERVENTION",
+          "id": "SPIRIT_FORM",
           "points": 3,
-          "why": "위기 때 최대 250 방어막과 형상 5턴 연장. 충전 5, 형상당 1회",
-          "tag": "설명문 기준",
-          "quote": "+3: 최대 250의 방어막을 부여하고 승천자의 형상 지속시간을 5턴 늘립니다"
+          "why": "삼위일체를 사용할 때, 성직자가 선택한 반지의 효과를 20턴 동안 +3 강화의 효율로 얻거나, 선택한 유물의 효과를 +8 강화의 효율로 사용합니다.",
+          "tag": "추정"
+        },
+        {
+          "id": "BODY_FORM",
+          "points": 1,
+          "why": "삼위일체를 사용할 때, 성직자가 선택한 효과를 20턴 동안 얻습니다.",
+          "tag": "추정"
         },
         {
           "id": "HEROIC_ENERGY",
-          "points": 3,
-          "why": "충전 50으로 비싼 승천자의 형상 비용을 32% 줄임",
-          "tag": "설명문 기준",
-          "quote": "+3: 방어구 능력 사용에 드는 충전량이 32% 감소"
+          "points": 2,
+          "why": "영웅의 방어구 능력 사용에 드는 충전량이 23% 감소합니다.",
+          "tag": "추정"
         }
       ],
       "bonus": [
@@ -129,39 +132,48 @@
         }
       ],
       "armorAbility": {
-        "id": "ASCENDEDFORM",
-        "why": "주문 시전마다 충전당 방어막 10. 주문을 많이 쓰는 사제와 맞음",
-        "tag": "설명문 기준",
-        "quote": "주문을 시전하면 사용한 성서의 충전량당 10의 방어막을 얻습니다"
+        "id": "TRINITY",
+        "why": "막대 복사로 충전 관리가 쉬워 사제 갑옷 능력 1티어라는 평. 배분은 성심 형상(막대 +6 효율)에 우선 둔 추정",
+        "tag": "커뮤니티",
+        "quote": "삼위일체가 갑옷능력 1티어임",
+        "src": [
+          "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=78955",
+          "2026-05-06"
+        ]
       },
       "gear": [
         {
-          "slot": "weapon",
-          "ref": "Mace",
-          "why": "딜은 주문 담당이라 힘 14로 드는 3티어. A 명중률 0.69로 3티어 중 최고, DPT 3.83",
-          "tag": "코드 계산",
-          "quote": "scenarios A: Mace pHit 0.6875, dpt 3.826, strReq 14"
-        },
-        {
-          "slot": "glyph",
-          "ref": "Potential",
-          "why": "맞을 때 마법 막대를 충전. 막대로 발광을 소모하는 사제와 맞음",
-          "tag": "설명문 기준",
-          "quote": "이 상형문자는 공격받을 때 전기 에너지를 충전하며, 발동할 때 착용자의 마법 막대에 충전량을 제공합니다."
-        },
-        {
           "slot": "ring",
-          "name": "충전의 반지",
-          "why": "성서 충전 속도가 이 반지 배율로 나뉨. 주문 횟수를 직접 늘림",
-          "tag": "코드 계산",
-          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/artifacts/HolyTome.java:294 turnsToCharge /= RingOfEnergy.artifactChargeMultiplier(target)"
+          "why": "충전의 반지가 성서·붕괴 막대·에테르 사슬·갑옷 충전에 모두 영향",
+          "tag": "커뮤니티",
+          "quote": "충반이면 사제가 맞다, 꼬운 적 상대로 성창 난사 가능",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84031",
+            "2026-10-17"
+          ],
+          "name": "충전의 반지"
         },
         {
           "slot": "wand",
-          "name": "공격형 마법 막대(예: 마탄의 마법 막대)",
-          "why": "막대로 발광을 소모하면 사제 레벨만큼 추가 마법 피해",
-          "tag": "설명문 기준",
-          "quote": "발광이 광휘, 다른 아군 및 마법 막대와 적을 지정하는 몇몇 유물로 소모가 가능하며, ... 사제의 레벨과 동일한 추가 마법 피해를 줍니다"
+          "why": "한 번에 많이 때리거나 유틸이 좋은 막대 추천",
+          "tag": "커뮤니티",
+          "quote": "충반이 그냥 최고점이라 막대는 한번에 많이때리거나 유틸좋은 번개 붕괴가 재성장 충격파 등이 좋아보여요",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84466",
+            "2026-11-05"
+          ],
+          "name": "번개·붕괴·충격파의 마법 막대"
+        },
+        {
+          "slot": "artifact",
+          "why": "충반 + 풍요의 뿔 사제 \"괴물\"",
+          "tag": "커뮤니티",
+          "quote": "충반 풍뿔 사제 ㅋㅋ 괴물이긴하네",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84466",
+            "2026-11-05"
+          ],
+          "name": "풍요의 뿔"
         },
         {
           "slot": "artifact",
@@ -171,8 +183,8 @@
           "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/artifacts/HolyTome.java:59 chargeCap = Math.min(level()+3, 10); :173 exp로 레벨업"
         }
       ],
-      "playstyle": "초반엔 곤봉과 인도하는 빛, 태양 광선으로 안전하게 싸우고 식사로 충전을 채웁니다. 사제가 되면 강적에게는 성창, 무리에게는 축성의 땅을 쓰고, 공짜 인도하는 빛의 발광은 마법 막대로 터뜨립니다. 후반엔 승천자의 형상 중 주문을 몰아 쓴 뒤 심판으로 마무리합니다.",
-      "playstyleTag": "추정"
+      "playstyle": "초반엔 곤봉과 인도하는 빛, 태양 광선으로 안전하게 싸우고 식사로 충전을 채웁니다. 사제가 되면 강적에게 성창을 쓰고, 공짜 인도하는 빛의 발광은 막대로 터뜨립니다. 막대는 한 번에 여러 번 때리거나 유틸이 좋은 번개·붕괴·충격파·재성장이 추천됩니다. 갑옷 능력은 삼위일체로 막대를 복사해 충전 관리를 쉽게 합니다(승천자의 형상은 평이 갈림).",
+      "playstyleTag": "커뮤니티"
     },
     {
       "subclass": "PALADIN",
@@ -283,17 +295,14 @@
       "gear": [
         {
           "slot": "weapon",
-          "ref": "Sword",
-          "why": "중반 무기. A(+0, 힘 14) DPT 4.56으로 1위",
-          "tag": "코드 계산",
-          "quote": "scenarios A: Sword dpt 4.56, strReq 14"
-        },
-        {
-          "slot": "weapon",
-          "ref": "Greataxe",
-          "why": "후반 B DPT 30.70 1위. +6에도 요구 힘 17이라 부족하면 철퇴(30.10, 요구 13)",
-          "tag": "코드 계산",
-          "quote": "scenarios B: Greataxe dpt 30.70 req 17; Flail dpt 30.10 req 13; A: Greataxe dpt 0.47 (req 20)"
+          "why": "명중 보정이 높고, 3강 전쟁 망치 + 판금으로 종결 성직자 사례",
+          "tag": "커뮤니티",
+          "quote": "텐구 전부터 3전쟁망치 2판금입고 종결 성직자 만들었우",
+          "src": [
+            "https://gall.dcinside.com/mgallery/board/view/?id=spd&no=78880",
+            "2026-05-04"
+          ],
+          "ref": "WarHammer"
         },
         {
           "slot": "enchantment",
@@ -324,7 +333,7 @@
           "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/artifacts/HolyTome.java:294 turnsToCharge /= RingOfEnergy.artifactChargeMultiplier(target)"
         }
       ],
-      "playstyle": "초반엔 곤봉과 인도하는 빛 연계로 근접전을 하고, 검이 나오면 갈아탑니다. 성기사가 되면 보호의 오라를 켜고 천벌로 마무리해 타락 마법으로 적을 아군으로 만들며, 안수기도로 그 아군을 회복시킵니다. 후반엔 집단의 힘과 생명 연결로 강화한 아군을 앞세웁니다.",
+      "playstyle": "초반엔 곤봉과 인도하는 빛 연계로 근접전을 하고, 전쟁 망치가 나오면 갈아탑니다. 성기사가 되면 보호의 오라를 켜고 천벌로 마무리해 타락 마법으로 적을 아군으로 만들며, 안수기도로 그 아군을 회복시킵니다. 후반엔 집단의 힘과 생명 연결로 강화한 아군을 앞세웁니다.",
       "playstyleTag": "추정"
     }
   ]

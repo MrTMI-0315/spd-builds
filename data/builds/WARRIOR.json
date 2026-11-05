@@ -4,8 +4,9 @@
   "summaryTag": "추정",
   "subclassVerdict": {
     "pick": "BERSERKER",
-    "why": "광포화 방어막이 (8+2×갑옷 강화)×최대 3배로 갑옷 강화만으로 커져 운영이 단순함",
-    "tag": "추정",
+    "why": "광포화 방어막이 (8+2×갑옷 강화)×잃은 체력에 따라 1~3배라 갑옷 강화만 챙기면 돼 운영이 단순함",
+    "tag": "코드 계산",
+    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Berserk.java:211 shieldMultiplier = 1f + 2*(1-HP/HT)^3; :220-222 baseShield = 8 + 2*armor.buffedLvl()",
     "community": [
       {
         "text": "검투사가 더 안정적이라는 의견이 우세합니다. 갑옷을 강화하지 않으면 광전사는 분노를 못 쌓고, 초보는 검투사를 고르라는 댓글이 여럿입니다. 갑옷에 강화를 몰아줄 계획일 때 광전사를 고르세요.",
@@ -149,8 +150,9 @@
       ],
       "armorAbility": {
         "id": "HEROICLEAP",
-        "why": "몸통 박치기가 갑옷 방어력에 비례해 갑옷 몰빵과 맞고, 광포화 후 이탈 수단",
-        "tag": "추정"
+        "why": "몸통 박치기 +4가 4-16 + 방어력 100% 피해라 갑옷 몰빵과 맞고, 광포화 후 이탈 수단",
+        "tag": "설명문 기준",
+        "quote": "몸통 박치기 +4: 근접한 모든 적들은 4-16 + 전사의 방어력의 100% 만큼 피해"
       },
       "gear": [
         {
@@ -192,7 +194,8 @@
           "slot": "ring",
           "name": "힘의 반지",
           "why": "힘과 최대 체력을 함께 올려 특대 도끼 요구 힘을 앞당김",
-          "tag": "추정"
+          "tag": "설명문 기준",
+          "quote": "core/src/main/assets/messages/items/items_ko.properties:1108 더 강한 힘과 더 많은 최대 체력을 부여합니다"
         }
       ],
       "playstyle": "초반엔 검·인장 방어막으로 정면 교전하고 강화는 갑옷에 우선 넣습니다. 텐구 이후 광전사로 분노 100%에서 광포화해 위기를 넘기고, 철인으로 힘이 오르면 특대 도끼로 갈아탑니다. 후반엔 영웅의 도약으로 포위를 끊고 몸통 박치기로 착지 피해를 줍니다.",
@@ -320,8 +323,9 @@
       ],
       "armorAbility": {
         "id": "SHOCKWAVE",
-        "why": "철인으로 오른 힘이 피해에 그대로 들어가고, 충격파 타격이 연속 타격을 쌓아 줌",
-        "tag": "추정"
+        "why": "철인으로 오른 힘이 10 초과 1당 피해 1-2로 들어가고, 충격파 타격이 연속 타격을 쌓아 줌",
+        "tag": "코드 계산",
+        "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/hero/abilities/warrior/Shockwave.java:116-117 scalingStr = STR()-10; damage(5+scalingStr, 10+2*scalingStr); :131 Combo.hit(ch)"
       },
       "gear": [
         {
@@ -355,14 +359,16 @@
         {
           "slot": "glyph",
           "ref": "Viscosity",
-          "why": "받는 피해를 나눠 받아 콤보가 끊기기 전 전투를 길게 끌 수 있음",
-          "tag": "추정"
+          "why": "받은 피해가 시간에 걸쳐 나눠 들어와 콤보가 끊기기 전 전투를 길게 끌 수 있음",
+          "tag": "설명문 기준",
+          "quote": "core/src/main/assets/messages/items/items_ko.properties:69 받은 피해가 즉시 발생하는 대신, 시간에 걸쳐 서서히 들어옵니다"
         },
         {
           "slot": "ring",
           "name": "분노의 반지",
           "why": "공격 속도가 곧 연속 타격 속도",
-          "tag": "추정"
+          "tag": "설명문 기준",
+          "quote": "core/src/main/assets/messages/items/items_ko.properties:1093 더 빠르게 공격할 수 있게 합니다"
         }
       ],
       "playstyle": "초반엔 검이나 쌍차로 근접전을 하며 강화는 무기와 갑옷에 나눕니다. 검투사 이후엔 쌍차·돌 건틀릿으로 턴당 2콤보를 쌓고 가르기로 다음 적까지 이어가 10콤보 연타나 8콤보 범위기로 마무리합니다. 후반엔 충격파로 여러 적을 기절시키며 한 번에 콤보를 채웁니다.",

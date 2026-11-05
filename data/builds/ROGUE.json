@@ -4,8 +4,9 @@
   "summaryTag": "추정",
   "subclassVerdict": {
     "pick": "ASSASSIN",
-    "why": "9턴 마음가짐 공격이 +50%·3회 중 최고 피해이고, 향상된 치사율 3이면 일반 적은 체력 100% 미만 즉사",
-    "tag": "추정",
+    "why": "9턴 마음가짐 공격이 +50%·피해 3번 굴려 최고값이고, 향상된 치사율 3이면 일반 적은 체력 100% 미만 즉사",
+    "tag": "코드 계산",
+    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Preparation.java:66 LVL_4( 9, 0.50f, 3); :83 {.50f, .67f, .83f, 1.0f}",
     "community": [{"text": "프리러너를 권하는 쪽이 조금 우세합니다(신속·흐름 상형문자 사슬 갑옷 조합, 고챌린지용). 충전의 반지가 있으면 암살자라는 의견도 있어 갈립니다.", "src": [["https://namu.wiki/w/Shattered_Pixel_Dungeon/직업", "2026-10-13"], ["https://gall.dcinside.com/mgallery/board/view/?id=spd&no=84208", "2026-10-25"]]}]
   },
   "builds": [
@@ -31,14 +32,14 @@
         { "tier": 3, "id": "BOUNTY_HUNTER", "points": 2, "why": "4단계 처치 시 드롭 확률 +32%", "tag": "설명문 기준", "quote": "+2: 단계에 따라 4/8/16/32% 증가" },
         { "tier": 4, "id": "SHADOW_STEP", "points": 2, "why": "투명 중 연막탄 즉시·30% 절약(다른 특성 미발동)", "tag": "설명문 기준", "quote": "+2: 투명화 상태에서 즉시 발동, 30% 적은 충전량, 다른 특성을 발동시키지 않음" }
       ],
-      "armorAbility": { "id": "SMOKEBOMB", "why": "빠른 후퇴의 투명화가 곧 마음가짐 시간이라 기습 순환이 끊기지 않음", "tag": "추정" },
+      "armorAbility": { "id": "SMOKEBOMB", "why": "빠른 후퇴 +4로 점멸 후 4턴 투명화, 투명한 동안 마음가짐이 쌓여 기습 순환이 끊기지 않음", "tag": "코드 계산", "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/hero/abilities/rogue/SmokeBomb.java:135 duration = 0.67f + HASTY_RETREAT; core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/buffs/Preparation.java:136 if (target.invisible > 0) turnsInvis++" },
       "gear": [
         { "slot": "weapon", "ref": "Sword", "why": "A(힘 14) DPT 4.56로 1위. 기습 보정 무기도 DPT엔 기습 미반영", "tag": "코드 계산", "quote": "scenario A Sword dpt 4.5633; limitations: surprise attacks ignored" },
         { "slot": "weapon", "ref": "Greataxe", "why": "B DPT 30.70 1위, +6 요구 힘 17. 2위 철퇴는 기습 불가라 제외", "tag": "코드 계산", "quote": "scenario B Greataxe 30.7016, Flail 30.1 (철퇴: 기습 공격을 할 수 없습니다)" },
-        { "slot": "armor", "ref": "LeatherArmor", "why": "근접 후 노출 시간 대비 방어, 요구 힘 12로 부담 적음", "tag": "추정" },
+        { "slot": "armor", "ref": "LeatherArmor", "why": "근접 후 노출 시간 대비 방어, 요구 힘 12로 부담 적음", "tag": "코드 계산", "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/armor/Armor.java:702 (8 + Math.round(tier * 2)) → 2티어 가죽 갑옷 12" },
         { "slot": "glyph", "ref": "Camouflage", "why": "풀에서 투명화 → 망토 없이도 마음가짐을 쌓을 기회", "tag": "설명문 기준", "quote": "기다란 풀에 숨어들어, 일시적으로 투명화" },
-        { "slot": "artifact", "name": "그림자의 망토", "why": "시작 유물, 투명화·향상된 반지·신비한 식사의 중심", "tag": "추정" },
-        { "slot": "ring", "name": "회피의 반지", "why": "일격 후 노출된 동안 생존, 향상된 반지로 +1 추가", "tag": "추정" }
+        { "slot": "artifact", "name": "그림자의 망토", "why": "시작 유물, 투명화·향상된 반지·신비한 식사의 중심", "tag": "설명문 기준", "quote": "core/src/main/assets/messages/items/items_ko.properties:203 이 망토를 입으면 일시적으로 완전히 투명해질 수 있습니다" },
+        { "slot": "ring", "name": "회피의 반지", "why": "일격 후 노출된 동안 생존. 망토를 쓰면 향상된 반지 +2로 6턴간 +1", "tag": "설명문 기준", "quote": "향상된 반지 +2: 도적이 유물을 사용했을 때, 반지들의 강화 수치가 6 턴 동안 +1 만큼 증가" }
       ],
       "playstyle": "초반엔 망토로 다가가 단검 기습을 넣고, 주문서는 투명화가 필요한 순간까지 아껴 둡니다. 암살자 이후엔 9턴 투명으로 4단계 마음가짐을 쌓아 먼 적에게 점멸해 즉사시키고, 망토·식사로 투명화를 재충전합니다. 후반엔 연막탄으로 이탈과 다음 마음가짐을 동시에 챙깁니다.",
       "playstyleTag": "추정"
@@ -65,13 +66,13 @@
         { "tier": 3, "id": "ENHANCED_RINGS", "points": 2, "why": "망토 사용 시 반지 6턴 +1", "tag": "설명문 기준", "quote": "+2: 반지들의 강화 수치가 6 턴 동안 +1" },
         { "tier": 4, "id": "FEAR_THE_REAPER", "points": 2, "why": "표식 대상 체력 0 시 공포·불구로 마무리 전 위협 제거", "tag": "설명문 기준", "quote": "+2: 대상을 공포, 불구 상태로" }
       ],
-      "armorAbility": { "id": "DEATHMARK", "why": "25% 추가 피해가 투척 집중 사격에 붙고, 처치 방어막이 낮은 방어를 메움", "tag": "추정" },
+      "armorAbility": { "id": "DEATHMARK", "why": "표식 대상은 받는 피해 +25%, 치명적인 내구력 +4로 처치 시 표식 시점 체력 50% 방어막", "tag": "설명문 기준", "quote": "죽음의 표식: 25%의 추가 피해를 받게 합니다 / 치명적인 내구력 +4: 표식에 걸린 시점의 체력의 50% 만큼 방어막" },
       "gear": [
         { "slot": "weapon", "ref": "Scimitar", "why": "+6 요구 힘 11로 가볍고 B DPT 20.85(11위), A 4.21(2위)", "tag": "코드 계산", "quote": "scenario B Scimitar 20.8468 req 11; A 4.2105" },
         { "slot": "armor", "ref": "LeatherArmor", "why": "천보다 DR 높고(+6: 6-16 vs 6-8) 회피 손해는 힘 2(=회피 6)", "tag": "코드 계산", "quote": "Leather at6 [6,16] req 9; Cloth at6 [6,8] req 7; EVASIVE_ARMOR 3 → 힘 1당 회피 3" },
-        { "slot": "other", "name": "투척용 창·투창", "why": "프리러닝 투척 보너스를 받는 주력 화력", "tag": "추정" },
+        { "slot": "other", "name": "투척용 창·투창", "why": "프리러닝 중 발사체 가속 +3으로 투척 피해 +45%·정확성 +150%. 주력 화력", "tag": "코드 계산", "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/missiles/MissileWeapon.java:544 damage * (1f + 0.15f * PROJECTILE_MOMENTUM)" },
         { "slot": "glyph", "ref": "Swiftness", "why": "주변에 적이 없을 때 이동 속도 증가, 거리 벌리기", "tag": "설명문 기준", "quote": "착용자의 근처에 적이 없을 경우 착용자의 이동 속도를 늘려줍니다" },
-        { "slot": "ring", "name": "저격의 반지", "why": "투척 무기 주력이라 직접 강화 효과", "tag": "추정" }
+        { "slot": "ring", "name": "저격의 반지", "why": "투척 무기 주력이라 직접 강화 효과", "tag": "설명문 기준", "quote": "core/src/main/assets/messages/items/items_ko.properties:1116 모든 발사체 무기들을 더 강력하고 오래 사용할 수 있게 합니다" }
       ],
       "playstyle": "초반엔 망토 기습과 투척 무기로 싸우며 갑옷은 가볍게 유지합니다. 프리러너 이후엔 이동으로 가속력을 쌓아 프리러닝 중 높은 회피로 버티며 투척 무기를 퍼붓습니다. 후반엔 죽음의 표식으로 위험한 적을 먼저 지우고 처치 방어막으로 반격을 받아냅니다.",
       "playstyleTag": "추정"

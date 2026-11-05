@@ -116,7 +116,8 @@
           "id": "COMBINED_LETHALITY",
           "points": 2,
           "why": "칼춤은 즉시 시전이라 연계가 애매함. 공격형 보조 무기로 바꿀 때만",
-          "tag": "추정"
+          "tag": "코드 계산",
+          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/melee/Scimitar.java:52 //1 turn less as using the ability is instant"
         }
       ],
       "armorAbility": {

@@ -5,7 +5,8 @@
   "subclassVerdict": {
     "pick": "BATTLEMAGE",
     "why": "흑마법사 표식은 +0 막대 15%라 강화에 크게 의존, 전투 마법사 효과는 매 타격 발동",
-    "tag": "추정",
+    "tag": "코드 계산",
+    "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/wands/Wand.java:218-219 Starts at 15% (0.92^(lvl×charges+1) - 0.07); core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/weapon/melee/MagesStaff.java:178-182 BATTLEMAGE → wand.onHit",
     "community": [
       {
         "text": "마음에 드는 고티어 근접 무기를 얻었다면 흑마법사를 권합니다. 타락·굴절광 막대와 궁합이 좋다는 평입니다.",
@@ -137,8 +138,9 @@
       ],
       "armorAbility": {
         "id": "ELEMENTALBLAST",
-        "why": "지팡이 융합 막대에 따라 효과가 바뀌어 지팡이 몰빵과 맞고 방어막까지 얻음",
-        "tag": "추정"
+        "why": "효과가 지팡이 융합 막대에 따라 바뀌어 지팡이 몰빵과 맞고, 반응형 방어막 +3으로 대상당 방어막 7.5",
+        "tag": "설명문 기준",
+        "quote": "원소 폭발의 특수 효과는 융합된 마법 막대의 종류에 따라 달라집니다 / 반응형 방어막 +3: 대상 하나 당 7.5의 방어막, 최대 7명"
       },
       "gear": [
         {
@@ -173,7 +175,8 @@
           "slot": "ring",
           "name": "충전의 반지",
           "why": "지팡이·유물 충전 속도가 곧 근접 강화 횟수",
-          "tag": "추정"
+          "tag": "설명문 기준",
+          "quote": "core/src/main/assets/messages/items/items_ko.properties:1061 착용자의 마법 막대와 유물, 그리고 영웅의 갑옷 충전 속도가 늘어납니다"
         }
       ],
       "playstyle": "초반엔 마탄 지팡이로 원거리 견제 후 다가오는 적을 지팡이로 칩니다. 텐구 이후 대지의 막대를 융합해 발사→근접 순서로 강력한 일격을 계속 터뜨리고, 과충전 방어막을 위해 교전 전 지팡이를 채워 둡니다. 후반엔 원소 폭발로 무리를 처리하며 반응형 방어막을 얻습니다.",
@@ -289,8 +292,9 @@
       ],
       "armorAbility": {
         "id": "WILDMAGIC",
-        "why": "한 턴에 여러 막대를 쏴 표식을 한꺼번에 깔고, 지팡이 외 막대를 활용",
-        "tag": "추정"
+        "why": "전탄 발사 +4로 한 번에 최대 8발, 발사마다 표식 판정. 지팡이 밖 막대를 활용",
+        "tag": "코드 계산",
+        "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/hero/abilities/mage/WildMagic.java:71 getAllItems(Wand.class); :82 maxWands = 4 + FIRE_EVERYTHING; core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/wands/Wand.java:216-220 WARLOCK → SoulMark"
       },
       "gear": [
         {
@@ -303,14 +307,16 @@
         {
           "slot": "wand",
           "name": "타락의 마법 막대",
-          "why": "적을 아군으로 돌려 영혼 흡수 발동 주체를 늘림",
-          "tag": "추정"
+          "why": "적을 아군으로 돌림. 영혼 흡수 +3이면 아군 물리 공격도 표식 회복을 40%로 발동",
+          "tag": "코드 계산",
+          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/actors/mobs/Mob.java:880-886 enemy != hero → restoration × 0.4×SOUL_SIPHON/3"
         },
         {
           "slot": "wand",
           "name": "번개의 마법 막대 (지팡이 융합)",
           "why": "연쇄로 여러 적을 맞혀 표식 대상 확대",
-          "tag": "추정"
+          "tag": "코드 계산",
+          "quote": "core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/items/wands/WandOfLightning.java:85-91 for (Char ch : affected) wandProc(ch, ...)"
         },
         {
           "slot": "glyph",

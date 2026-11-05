@@ -137,7 +137,7 @@
       B ? [
         h('p', { style: 'margin-top:calc(4*var(--u))' }, B.summary, tag(B.summaryTag)),
         h('p', { class: 'small' }, '서브클래스 추천: ', h('span', { class: 'hl' }, SUB[B.subclassVerdict.pick]?.name_ko || '상황에 따라'), ' — ', B.subclassVerdict.why, B.subclassVerdict.quote ? h('span', { class: 'dim' }, ` — “${quoteText(B.subclassVerdict.quote)}”`) : null, tag(B.subclassVerdict.tag)),
-        ...(B.subclassVerdict.community || []).map((c) => h('p', { class: 'small', style: 'margin-top:0' }, tag('커뮤니티'), ' ', c.text, ...c.src.map(cite))),
+        ...(B.subclassVerdict.community || []).map((c) => h('p', { class: 'small', style: 'margin-top:0' }, tag('커뮤니티'), ' ', c.text, ...c.src.flatMap((x) => [' ', cite(x)]))),
         h('div', { class: 'builds' }, ...B.builds.map((b) => buildCard(cls, b, B.subclassVerdict.pick))),
       ] : h('p', { class: 'pending' }, '빌드 작성 중입니다.'),
       h('details', { class: 'all' }, h('summary', { class: 't6' }, `${cls.name_ko} 특성 전체 보기 (${allTalents.length}개)`),
@@ -173,7 +173,7 @@
         h('td', {}, String(w.tier)), h('td', {}, String(w.strReq.base)),
         h('td', {}, `${d.minBase}–${d.maxBase}`),
         h('td', {}, gradeEl(g)),
-        h('td', { class: 'small', style: 'min-width:calc(80*var(--u))' }, why, ' ', tag(srcs.length ? '커뮤니티' : '추정'), ...srcs.map((k) => cite(TIERS.sources[k]))),
+        h('td', { class: 'small', style: 'min-width:calc(80*var(--u))' }, why, ' ', tag(srcs.length ? '커뮤니티' : '추정'), ...srcs.flatMap((k) => [' ', cite(TIERS.sources[k])])),
         h('td', { class: 'num' }, RES.A[w.id].dpt.toFixed(2)),
         h('td', { class: 'num' }, RES.A_atReq[w.id].dpt.toFixed(2)),
         h('td', { class: 'num' }, RES.B[w.id].dpt.toFixed(2)),
